@@ -4,16 +4,30 @@ set -e
 DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 
 PACKAGES=(
+    # WM y entorno
     hyprland
     hypridle
     hyprlock
     waybar
     rofi
-    kitty
-    neovim
     dunst
-    thunar
+    # Terminal y shell
+    kitty
     zsh
+    zsh-autosuggestions
+    fzf
+    starship
+    zoxide
+    # Utilidades CLI
+    lsd
+    bat
+    wl-clipboard
+    # Editor
+    neovim
+    # Ficheros
+    thunar
+    # Fuente
+    ttf-jetbrains-mono-nerd
 )
 
 echo "Comprobando dependencias..."
