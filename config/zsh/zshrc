@@ -1,0 +1,93 @@
+# --- SISTEMA DE AUTOCOMPLETADO AVANZADO ---
+
+# Cargar el sistema de autocompletado
+autoload -Uz compinit
+compinit
+
+# 1. Activar menú de selección (Esto es lo que pedías)
+# Permite navegar con flechas/tab y resalta la selección
+zstyle ':completion:*' menu select
+
+# 2. Usar colores en la lista (Para que se vea bonito igual que el 'ls')
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}ma=7"
+
+# 3. Autocompletar ignorando mayúsculas/minúsculas (Muy cómodo)
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# 4. Incluir las definiciones extra que acabamos de instalar
+fpath+=(/usr/share/zsh/site-functions)
+
+# --- Historial ---
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
+# --- Comportamiento básico ---
+setopt autocd              # Si escribes solo una carpeta, entra en ella
+setopt nomatch             # Muestra error si no encuentra coincidencias
+
+# --- Activar Autocompletado avanzado ---
+autoload -Uz compinit
+compinit
+
+# --- PLUGINS (Instalados con Pacman) ---
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+source /usr/share/fzf/key-bindings.zsh
+# --- TUS HERRAMIENTAS ---
+# Iniciar Starship (El prompt del cohete)
+eval "$(starship init zsh)"
+
+# Iniciar Zoxide (El cd inteligente)
+eval "$(zoxide init zsh --cmd cd)"
+
+# Alias (Atajos útiles)
+alias ls='lsd --group-dirs=first'
+alias update='sudo pacman -Syu'
+alias venv='python -m venv .venv && source .venv/bin/activate'
+alias cascos='bluetoothctl connect F8:4E:17:1B:9D:4B'
+alias activate='source .venv/bin/activate'
+alias cat='bat'
+alias mirror='hyprctl keyword monitor HDMI-A-1, 1920x1080@60, 0x0, 1, mirror, eDP-1'
+alias please='sudo $(fc -ln -1)'
+alias -g clip='| kitty +kitten clipboard'
+alias -g paste='$(wl-paste)'
+
+# atajo para completar Shift + TAB
+bindkey '^[[Z' autosuggest-accept
+
+# usar nvim por defecto
+export EDITOR='nvim'
+
+# --- SUDO MÁGICO (CTRL + S) ---
+# 1. Desactivar el "congelamiento" de pantalla (Flow Control) para liberar Ctrl+S
+stty -ixon
+
+# 2. Definir la función que pone/quita sudo
+function prepend_sudo() {
+    if [[ "$BUFFER" != sudo\ * ]]; then
+        # Si no tiene sudo, ponlo al principio
+        BUFFER="sudo $BUFFER"
+        CURSOR+=5 # Mover el cursor para que no se quede atrás
+    else
+        # Si ya tiene sudo, quítalo (funciona como interruptor on/off)
+        BUFFER="${BUFFER#sudo }"
+        (( CURSOR -= 5 ))
+    fi
+}
+
+# 3. Registrar la función como un widget de Zsh
+zle -N prepend_sudo
+
+# 4. Asignar la tecla Ctrl + S
+bindkey '^s' prepend_sudo
+
+# Cambia SOLO las carpetas (di) a Naranja (208) y negrita (1)
+export LS_COLORS="di=1;38;2;242;203;63"
+
+# PATH pa cosas
+export PATH="$HOME/.local/bin:$PATH"
+export ANDROID_HOME=/opt/android-sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools

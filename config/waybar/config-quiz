@@ -1,0 +1,129 @@
+{
+	"layer": "top",
+	"position": "top",
+	"modules-left": [
+		"hyprland/workspaces",
+		"custom/media"
+	],
+	"modules-center": [
+		"clock"
+	],
+	"modules-right": [
+        "custom/quizsnap",
+        "battery",
+		"cpu",
+		"memory",
+		"tray",
+		"custom/brightness",
+		"custom/notifications",
+		"pulseaudio",
+		"custom/power"
+	],
+	"margin-left": 0,
+	"margin-right": 0,
+	"margin-bottom": 0,
+	"hyprland/workspaces": {
+		"disable-scroll": true,
+		"all-outputs": true,
+		"format": "{id}",
+		"persistent-workspaces": {
+			"1": [],
+			"2": [],
+			"3": [],
+			"4": [],
+			"5": []
+		}
+	},
+	"clock": {
+		"format": "{:%H:%M - %b %d}"
+	},
+    "battery": {
+		"states": {
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{icon} {capacity}%",
+		"format-charging": "󰂄 {capacity}%",
+		"format-plugged": "󰂄 {capacity}%",
+		"format-alt": "{time} {icon}",
+		"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+	},
+	"cpu": {
+		"format": " {usage}%",
+		"on-click": "kitty -e btop"
+	},
+	"memory": {
+		"interval": 30,
+		"format": " {percentage}%"
+	},
+	"tray": {
+		"icon-size": 16,
+		"spacing": 8
+	},
+	"network": {
+		"format-wifi": "",
+		"format-ethernet": "",
+		"format-disconnected": " ⚠",
+		"on-click": "kitty -e nmtui"
+	},
+	"custom/power": {
+		"format": "",
+		"tooltip": false,
+		"on-click": "~/.config/waybar/scripts/power-menu.sh"
+	},
+	"custom/brightness": {
+		"format": " {}%",
+		"exec": "ddcutil getvcp 10 | grep -o 'current value =[ ]*[0-9]*' | grep -o '[0-9]*'",
+		"signal": 10,
+		"tooltip": false
+	},
+	"custom/notifications": {
+		"tooltip": true,
+		"format": "<span size='16pt'>{icon}</span>",
+		"format-icons": {
+			"notification": "󱅫",
+			"none": "󰂜",
+			"dnd-notification": "󰂠",
+			"dnd-none": "󰪓",
+			"inhibited-notification": "󰂛",
+			"inhibited-none": "󰪑",
+			"dnd-inhibited-notification": "󰂛",
+			"dnd-inhibited-none": "󰪑"
+		},
+		"return-type": "json",
+		"exec-if": "which swaync-client",
+		"exec": "swaync-client -swb",
+		"on-click": "swaync-client -t -sw",
+		"on-click-right": "swaync-client -d -sw",
+		"escape": true
+	},
+	"custom/media": {
+		"format": " {}",
+		"max-length": 30,
+		"exec": "~/.config/waybar/scripts/scroll-media.sh",
+		"interval": 1,
+		"on-click": "playerctl play-pause"
+	},
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-bluetooth": "{icon} {volume}%",
+		"format-muted": "",
+		"format-icons": {
+			"muted": "",
+			"default": [
+				"",
+				"",
+				""
+			]
+		},
+		"on-click": "pavucontrol"
+	},
+	"custom/quizsnap": {
+		"exec": "~/.config/quizsnap/.venv/bin/python ~/.config/quizsnap/quizsnap_waybar.py",
+		"return-type": "json",
+		"interval": "once",
+		"signal": 8,
+		"on-click": "~/.config/quizsnap/.venv/bin/python ~/.config/quizsnap/quizsnap_scan.py &",
+		"tooltip": true
+	}
+}

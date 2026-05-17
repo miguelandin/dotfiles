@@ -1,0 +1,83 @@
+ju# --- MONITORES ---
+# 1. Portátil
+monitor = eDP-1, 1920x1200@60, 0x0, 1
+# 2. MSI Central
+monitor = DP-9, 1920x1080@144, 1920x0, 1
+
+# 3. MSI Derecha
+monitor = DP-8, 1920x1080@144, 3840x0, 1
+
+# --- VARIABLES DE ENTORNO ---
+env = XDG_SESSION_TYPE,wayland
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_DESKTOP,Hyprland
+# Prueba a comentar la siguiente línea con # si el ratón va bien. Si desaparece, descoméntala.
+env = WLR_NO_HARDWARE_CURSORS,1 
+
+# --- TECLADO Y RATÓN ---
+input {
+    kb_layout = es
+    follow_mouse = 1
+    touchpad {
+        natural_scroll = yes
+    }
+}
+
+# --- ESTÉTICA BÁSICA (Para que no se vea todo pegado) ---
+general {
+    gaps_in = 5        # Hueco entre ventanas
+    gaps_out = 10      # Margen con el borde de la pantalla
+    border_size = 2    # Grosor del borde de color
+    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg # Color borde activo
+    col.inactive_border = rgba(595959aa) # Color borde inactivo
+    layout = dwindle
+}
+
+# --- ATAJOS PRINCIPALES ---
+$mainMod = SUPER
+
+bind = $mainMod, RETURN, exec, kitty
+bind = $mainMod, M, exit, 
+bind = $mainMod, SPACE, exec, rofi -show drun
+bind = $mainMod, B, exec, firefox
+bind = $mainMod, F, exec, dolphin
+
+# Gestión de Ventanas
+bind = $mainMod, W, killactive,
+bind = $mainMod, V, fullscreen,
+bind = $mainMod, C, togglefloating,
+
+# --- RECARGA INTELIGENTE (Reinicia waybar también) ---
+bind = $mainMod SHIFT, R, exec, killall waybar; waybar & hyprctl reload && notify-send "Hyprland" "Configuración recargada"
+
+# --- MOVIMIENTO (LO QUE FALTABA) ---
+# Moverse entre ventanas con flechas
+bind = $mainMod, H, movefocus, l
+bind = $mainMod, L, movefocus, r
+bind = $mainMod, K, movefocus, u
+bind = $mainMod, J, movefocus, d
+
+# Moverse por los espacios de trabajo (1-5)
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+
+# Mover la ventana activa a otro espacio de trabajo (con Shift + Número)
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+
+# Mover/Redimensionar ventanas con el ratón + tecla Super
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+# --- INICIO AUTOMÁTICO ---
+exec-once = waybar
+exec-once = dunst
+exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec-once = nm-applet
+exec-once = swaybg -i /home/mike/Pictures/wallpapers/fondo41.jpg -m fill

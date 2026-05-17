@@ -1,0 +1,112 @@
+configuration {
+    modi: "drun";
+    show-icons: true;
+    display-drun: "Run";
+    drun-display-format: "{name}";
+    font: "JetBrainsMono Nerd Font Bold 11";
+}
+
+/*******************************************************************************
+ * GRUVBOX DARK PALETTE
+ *******************************************************************************/
+* {
+    /* Paleta Oficial Gruvbox */
+    gruv-bg-hard:   #1d2021;
+    gruv-bg:        #282828;
+    gruv-bg-light:  #3c3836;
+    gruv-fg:        #ebdbb2;
+    gruv-fg-dim:    #a89984;
+    gruv-red:       #cc241d;
+    gruv-green:     #98971a;
+    gruv-yellow:    #d79921; /* Acento Principal */
+    gruv-blue:      #458588;
+    gruv-purple:    #b16286;
+    gruv-aqua:      #689d6a;
+    gruv-orange:    #d65d0e;
+
+    /* Asignación de variables */
+    bg:             #282828f2; /* Fondo con ligera transparencia */
+    fg:             @gruv-fg;
+    accent:         @gruv-yellow; /* Cambiar a @gruv-orange si prefieres naranja */
+    input-bg:       @gruv-bg-light;
+    
+    background-color: transparent;
+    text-color: @fg;
+    
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+}
+
+window {
+    width: 35%;
+    border-radius: 4px; /* Bordes menos redondos para estilo retro/industrial */
+    background-color: @bg;
+    border: 2px;
+    border-color: @accent;
+    padding: 10px;
+}
+
+inputbar {
+    background-color: transparent;
+    children: [prompt, entry];
+    margin: 10px;
+    border-radius: 4px;
+}
+
+prompt {
+    padding: 10px;
+    background-color: @accent;
+    text-color: @gruv-bg-hard; /* Texto oscuro sobre amarillo para contraste */
+    font: "JetBrainsMono Nerd Font Bold 12";
+    border-radius: 4px 0px 0px 4px;
+}
+
+entry {
+    padding: 10px;
+    background-color: @input-bg;
+    text-color: @fg;
+    placeholder: "Escribe para buscar...";
+    placeholder-color: @gruv-fg-dim;
+    border-radius: 0px 4px 4px 0px;
+}
+
+listview {
+    lines: 8;
+    columns: 1;
+    margin: 10px;
+    scrollbar: false;
+}
+
+element {
+    padding: 8px;
+    border-radius: 4px;
+    margin: 2px 0px;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @accent; /* Fondo amarillo al seleccionar */
+    text-color: @gruv-bg-hard; /* Texto negro al seleccionar */
+}
+
+element-icon {
+    size: 24px;
+    margin-right: 10px;
+    background-color: transparent;
+}
+
+element-text {
+    vertical-align: 0.5;
+    background-color: transparent;
+    text-color: inherit;
+}

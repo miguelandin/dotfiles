@@ -1,0 +1,52 @@
+[global]
+    # --- DIMENSIONES (Sintaxis Nueva) ---
+    # (mínimo, máximo)
+    width = (300, 300)
+    height = (0, 300)
+
+    # Posición
+    origin = top-right
+    # (horizontal, vertical)
+    offset = (20, 50)
+
+    notification_limit = 5
+
+    # --- DISEÑO ---
+    font = JetBrainsMono Nerd Font 10
+
+    # Marco
+    frame_width = 2
+    separator_color = frame
+    corner_radius = 10
+
+    # Relleno e Iconos
+    padding = 10
+    horizontal_padding = 10
+    text_icon_padding = 10
+    icon_position = left
+    min_icon_size = 48
+    max_icon_size = 64
+
+    # Progreso
+    progress_bar = true
+    progress_bar_height = 10
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+
+# --- COLORES ---
+
+[urgency_low]
+    background = "#1e1e2ecc"
+    foreground = "#cdd6f4"
+    frame_color = "#a6e3a1"
+
+[urgency_normal]
+    background = "#1e1e2ecc"
+    foreground = "#cdd6f4"
+    frame_color = "#89b4fa"
+
+[urgency_critical]
+    background = "#1e1e2ecc"
+    foreground = "#cdd6f4"
+    frame_color = "#f38ba8"
