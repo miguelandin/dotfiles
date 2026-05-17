@@ -38,8 +38,13 @@ done
 
 if [[ ${#missing[@]} -gt 0 ]]; then
     echo "Paquetes no instalados: ${missing[*]}"
-    echo "Instala con: sudo pacman -S ${missing[*]}"
-    exit 1
+    read -r -p "¿Instalar ahora? [s/N] " resp
+    if [[ "$resp" =~ ^[sS]$ ]]; then
+        sudo pacman -S --needed "${missing[@]}"
+    else
+        echo "Instala manualmente con: sudo pacman -S ${missing[*]}"
+        exit 1
+    fi
 fi
 
 echo "Instalando dotfiles..."
